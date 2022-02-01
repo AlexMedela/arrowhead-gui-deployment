@@ -1,0 +1,10 @@
+---
+apiVersion: getambassador.io/v2
+kind:  Mapping
+metadata:
+  name:  eventhandler
+spec:
+  prefix: "/eventhandler"
+  timeout_ms: 4000
+  service: eventhandler:8455  # Service name and its port
+

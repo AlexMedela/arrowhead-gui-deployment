@@ -1,0 +1,57 @@
+# Orchestartor service
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestrator
+spec:
+  ports:
+  - port: 8441
+  selector:
+    type: core
+    app: orch
+  clusterIP: None
+
+# Orchestator deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orch-deployment
+  labels:
+    type: core-service
+spec: # Deployment scpecifications
+  replicas: 1
+  selector:
+    matchLabels:
+      type: core
+      app: orch
+  template:
+    metadata:
+      labels:
+        type: core
+        app: orch
+    spec: # Docker Network
+      containers: 
+      - name: orchestrator
+        image: alexmedela/orchestrator:4.4.1
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "400Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8441
+        volumeMounts:
+        - name: orchestrator-volume
+          mountPath: /orchestrator/application.properties
+          subPath: application.properties
+      volumes: # Docker Network Volumes
+        - name: orchestrator-volume
+          configMap:
+            name: properties
+            items:
+            - key: orchestrator.properties
+              path: application.properties

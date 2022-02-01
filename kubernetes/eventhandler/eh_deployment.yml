@@ -1,0 +1,57 @@
+# Service Registry service
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventhandler
+spec:
+  ports:
+  - port: 8455
+  selector:
+    type: optional
+    app: eh
+  clusterIP: None
+
+# Service Registry deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eh-deployment
+  labels:
+    type: optional-service
+spec: # Deployment scpecifications
+  replicas: 1
+  selector:
+    matchLabels:
+      type: optional
+      app: eh
+  template:
+    metadata:
+      labels:
+        type: optional
+        app: eh
+    spec: # Docker Network
+      containers: 
+      - name: eventhandler
+        image: alexmedela/eventhandler:4.4.1
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "400Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8455
+        volumeMounts:
+        - name: eventhandler-volume
+          mountPath: /eventhandler/application.properties
+          subPath: application.properties
+      volumes: # Docker Network Volumes
+        - name: eventhandler-volume
+          configMap:
+            name: properties
+            items:
+            - key: eventhandler.properties
+              path: application.properties

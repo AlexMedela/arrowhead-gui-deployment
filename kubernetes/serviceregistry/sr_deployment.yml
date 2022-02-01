@@ -1,0 +1,57 @@
+# Service Registry service
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: serviceregistry
+spec:
+  ports:
+  - port: 8443
+  selector:
+    type: core
+    app: sr
+  clusterIP: None
+
+# Service Registry deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sr-deployment
+  labels:
+    type: core-service
+spec: # Deployment scpecifications
+  replicas: 1
+  selector:
+    matchLabels:
+      type: core
+      app: sr
+  template:
+    metadata:
+      labels:
+        type: core
+        app: sr
+    spec: # Docker Network
+      containers: 
+      - name: serviceregistry
+        image: alexmedela/serviceregistry:4.4.1
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "400Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8443
+        volumeMounts:
+        - name: serviceregistry-volume
+          mountPath: /serviceregistry/application.properties
+          subPath: application.properties
+      volumes: # Docker Network Volumes
+        - name: serviceregistry-volume
+          configMap:
+            name: properties
+            items:
+            - key: serviceregistry.properties
+              path: application.properties

@@ -1,0 +1,57 @@
+# Authorization service
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: authorization
+spec:
+  ports:
+  - port: 8445
+  selector:
+    type: core
+    app: auth
+  clusterIP: None
+
+# Authorization deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+  labels:
+    type: core-service
+spec: # Deployment scpecifications
+  replicas: 1
+  selector:
+    matchLabels:
+      type: core
+      app: auth
+  template:
+    metadata:
+      labels:
+        type: core
+        app: auth
+    spec: # Docker Network
+      containers: 
+      - name: authorization
+        image: alexmedela/authorization:4.4.1
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "400Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8445
+        volumeMounts:
+        - name: authorization-volume
+          mountPath: /authorization/application.properties
+          subPath: application.properties
+      volumes: # Docker Network Volumes
+        - name: authorization-volume
+          configMap:
+            name: properties
+            items:
+            - key: authorization.properties
+              path: application.properties

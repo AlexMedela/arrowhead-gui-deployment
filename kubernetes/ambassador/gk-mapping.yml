@@ -1,0 +1,9 @@
+---
+apiVersion: getambassador.io/v2
+kind:  Mapping
+metadata:
+  name:  gatekeeper
+spec:
+  prefix: "/gatekeeper"
+  timeout_ms: 4000
+  service: gatekeeper:8449  # Service name and its port

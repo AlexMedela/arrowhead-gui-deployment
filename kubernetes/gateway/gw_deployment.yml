@@ -1,0 +1,57 @@
+# Service Registry service
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway
+spec:
+  ports:
+  - port: 8453
+  selector:
+    type: optional
+    app: gw
+  clusterIP: None
+
+# Service Registry deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gw-deployment
+  labels:
+    type: optional-service
+spec: # Deployment scpecifications
+  replicas: 1
+  selector:
+    matchLabels:
+      type: optional
+      app: gw
+  template:
+    metadata:
+      labels:
+        type: optional
+        app: gw
+    spec: # Docker Network
+      containers: 
+      - name: gateway
+        image: alexmedela/gateway:4.4.1
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "400Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8453
+        volumeMounts:
+        - name: gateway-volume
+          mountPath: /gateway/application.properties
+          subPath: application.properties
+      volumes: # Docker Network Volumes
+        - name: gateway-volume
+          configMap:
+            name: properties
+            items:
+            - key: gateway.properties
+              path: application.properties

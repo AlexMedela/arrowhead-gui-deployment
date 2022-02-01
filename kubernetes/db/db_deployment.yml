@@ -1,0 +1,53 @@
+# Database service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-mariadb-galera
+spec:
+  ports:
+  - port: 3306
+  selector:
+    type: db
+  clusterIP: None
+
+# Deployment for the ArrowHead Database
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deployment
+  labels:
+    type: database
+spec:
+  selector:
+    matchLabels:
+      type: db
+      app: mysql
+  template:
+    metadata:
+      labels:
+        type: db
+        app: mysql
+    spec: 
+      containers: 
+      - name: mysql
+        image: mariadb:10.5
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: db-volume
+          mountPath: /docker-entrypoint-initdb.d/
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes: 
+        - name: db-volume
+          configMap:
+            name: db-init
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim

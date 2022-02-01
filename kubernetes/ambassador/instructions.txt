@@ -1,0 +1,4 @@
+Execute both files in separete commands
+Load Balancer needed
+Kubernetes version lower than 1.22 (Recommended 1.20)
+On minikube enable metallb addon (command: minikube addons enable metalb)

@@ -1,0 +1,57 @@
+# Service Registry service
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: gatekeeper
+spec:
+  ports:
+  - port: 8449
+  selector:
+    type: optional
+    app: gk
+  clusterIP: None
+
+# Service Registry deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gk-deployment
+  labels:
+    type: optional-service
+spec: # Deployment scpecifications
+  replicas: 1
+  selector:
+    matchLabels:
+      type: optional
+      app: gk
+  template:
+    metadata:
+      labels:
+        type: optional
+        app: gk
+    spec: # Docker Network
+      containers: 
+      - name: gatekeeper
+        image: alexmedela/gatekeeper:4.4.1
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "400Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8449
+        volumeMounts:
+        - name: gatekeeper-volume
+          mountPath: /gatekeeper/application.properties
+          subPath: application.properties
+      volumes: # Docker Network Volumes
+        - name: gatekeeper-volume
+          configMap:
+            name: properties
+            items:
+            - key: gatekeeper.properties
+              path: application.properties

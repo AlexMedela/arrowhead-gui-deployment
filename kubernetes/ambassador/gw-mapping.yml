@@ -1,0 +1,9 @@
+---
+apiVersion: getambassador.io/v2
+kind:  Mapping
+metadata:
+  name:  gateway
+spec:
+  prefix: "/gateway"
+  timeout_ms: 4000
+  service: gateway:8453  # Service name and its port

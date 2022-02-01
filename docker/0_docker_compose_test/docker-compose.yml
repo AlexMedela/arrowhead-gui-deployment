@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  mysql:
+    container_name: mysql
+    image: mariadb:10.5
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - mysql:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d/
+    ports:
+      - 3306:3306
+
+  serviceregistry:
+    container_name: serviceregistry
+    image: alexmedela/serviceregistry:4.4.1
+    depends_on:
+      - mysql
+    volumes:
+      - ./core_system_config/serviceregistry.properties:/serviceregistry/application.properties
+    ports:
+      - 8443:8443 
+
+  orchestrator:
+    container_name: orchestrator
+    image: alexmedela/orchestrator:4.4.1
+    depends_on:
+      - mysql
+    volumes:
+      - ./core_system_config/orchestrator.properties:/orchestrator/application.properties
+    ports:
+      - 8441:8441
+
+  authorization:
+    container_name: authorization
+    image: alexmedela/authorization:4.4.1
+    depends_on:
+      - mysql
+    volumes:
+      - ./core_system_config/authorization.properties:/authorization/application.properties
+    ports:
+      - 8445:8445
+
+volumes:
+  mysql:
+    external: true

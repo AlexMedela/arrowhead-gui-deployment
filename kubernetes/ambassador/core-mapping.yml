@@ -1,0 +1,29 @@
+---
+apiVersion: getambassador.io/v2
+kind:  Mapping
+metadata:
+  name:  serviceregistry
+spec:
+  prefix: "/serviceregistry"
+  timeout_ms: 4000
+  service: serviceregistry:8443  # Service name and its port
+
+---
+apiVersion: getambassador.io/v2
+kind:  Mapping
+metadata:
+  name:  orchestrator
+spec:
+  prefix: "/orchestrator"
+  timeout_ms: 4000
+  service: orchestrator:8441    # Service name and its port
+
+---
+apiVersion: getambassador.io/v2
+kind:  Mapping
+metadata:
+  name:  authorization
+spec:
+  prefix: "/authorization"
+  timeout_ms: 4000
+  service: authorization:8445    # Service name and its port
