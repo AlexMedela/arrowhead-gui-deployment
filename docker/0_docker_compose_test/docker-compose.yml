@@ -19,6 +19,8 @@ services:
       - mysql
     volumes:
       - ./core_system_config/serviceregistry.properties:/serviceregistry/application.properties
+      - ./certs/serviceregistry.p12:/serviceregistry/serviceregistry.p12
+      - ./certs/testcloud1.truststore.p12:/serviceregistry/truststore.p12
     ports:
       - 8443:8443 
 
@@ -29,6 +31,8 @@ services:
       - mysql
     volumes:
       - ./core_system_config/orchestrator.properties:/orchestrator/application.properties
+      - ./certs/orchestrator.p12:/orchestrator/orchestrator.p12
+      - ./certs/testcloud1.truststore.p12:/orchestrator/truststore.p12
     ports:
       - 8441:8441
 
@@ -39,8 +43,46 @@ services:
       - mysql
     volumes:
       - ./core_system_config/authorization.properties:/authorization/application.properties
+      - ./certs/authorization.p12:/authorization/authorization.p12
+      - ./certs/testcloud1.truststore.p12:/authorization/truststore.p12
     ports:
       - 8445:8445
+
+  eventhandler:
+    container_name: eventhandler
+    image: alexmedela/eventhandler:4.4.1
+    depends_on:
+      - mysql
+    volumes:
+      - ./core_system_config/eventhandler.properties:/eventhandler/application.properties
+      - ./certs/eventhandler.p12:/eventhandler/eventhandler.p12
+      - ./certs/testcloud1.truststore.p12:/eventhandler/truststore.p12
+    ports:
+      - 8455:8455
+
+  gatekeeper:
+    container_name: gatekeeper
+    image: alexmedela/gatekeeper:4.4.1
+    depends_on:
+      - mysql
+    volumes:
+      - ./core_system_config/gatekeeper.properties:/gatekeeper/application.properties
+      - ./certs/gatekeeper.p12:/gatekeeper/gatekeeper.p12
+      - ./certs/testcloud1.truststore.p12:/gatekeeper/truststore.p12
+    ports:
+      - 8449:8449
+  
+  gateway:
+    container_name: gateway
+    image: alexmedela/gateway:4.4.1
+    depends_on:
+      - mysql
+    volumes:
+      - ./core_system_config/gateway.properties:/gateway/application.properties
+      - ./certs/gateway.p12:/gateway/gateway.p12
+      - ./certs/testcloud1.truststore.p12:/gateway/truststore.p12
+    ports:
+      - 8453:8453
 
 volumes:
   mysql:

@@ -48,6 +48,12 @@ spec: # Deployment scpecifications
         - name: eventhandler-volume
           mountPath: /eventhandler/application.properties
           subPath: application.properties
+        - name: eh-cert-volume
+          mountPath: /eventhandler/eventhandler.p12
+          subPath: eventhandler.p12
+        - name: truststore-volume
+          mountPath: /serviceregistry/truststore.p12
+          subPath: truststore.p12
       volumes: # Docker Network Volumes
         - name: eventhandler-volume
           configMap:
@@ -55,3 +61,15 @@ spec: # Deployment scpecifications
             items:
             - key: eventhandler.properties
               path: application.properties
+        - name: eh-cert-volume
+          configMap:
+            name: certs
+            items:
+            - key: eventhandler.p12
+              path: eventhandler.p12
+        - name: truststore-volume
+          configMap:
+            name: certs
+            items:
+            - key: testcloud1.truststore.p12
+              path: truststore.p12

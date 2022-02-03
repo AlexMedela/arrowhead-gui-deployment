@@ -48,6 +48,12 @@ spec: # Deployment scpecifications
         - name: orchestrator-volume
           mountPath: /orchestrator/application.properties
           subPath: application.properties
+        - name: orch-cert-volume
+          mountPath: /orchestrator/orchestrator.p12
+          subPath: orchestrator.p12
+        - name: truststore-volume
+          mountPath: /serviceregistry/truststore.p12
+          subPath: truststore.p12
       volumes: # Docker Network Volumes
         - name: orchestrator-volume
           configMap:
@@ -55,3 +61,15 @@ spec: # Deployment scpecifications
             items:
             - key: orchestrator.properties
               path: application.properties
+        - name: orch-cert-volume
+          configMap:
+            name: certs
+            items:
+            - key: orchestrator.p12
+              path: orchestrator.p12
+        - name: truststore-volume
+          configMap:
+            name: certs
+            items:
+            - key: testcloud1.truststore.p12
+              path: truststore.p12

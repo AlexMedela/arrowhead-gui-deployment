@@ -48,6 +48,12 @@ spec: # Deployment scpecifications
         - name: authorization-volume
           mountPath: /authorization/application.properties
           subPath: application.properties
+        - name: auth-cert-volume
+          mountPath: /authorization/authorization.p12
+          subPath: authorization.p12
+        - name: truststore-volume
+          mountPath: /serviceregistry/truststore.p12
+          subPath: truststore.p12
       volumes: # Docker Network Volumes
         - name: authorization-volume
           configMap:
@@ -55,3 +61,15 @@ spec: # Deployment scpecifications
             items:
             - key: authorization.properties
               path: application.properties
+        - name: auth-cert-volume
+          configMap:
+            name: certs
+            items:
+            - key: authorization.p12
+              path: authorization.p12
+        - name: truststore-volume
+          configMap:
+            name: certs
+            items:
+            - key: testcloud1.truststore.p12
+              path: truststore.p12
