@@ -48,12 +48,6 @@ spec: # Deployment scpecifications
         - name: serviceregistry-volume
           mountPath: /serviceregistry/application.properties
           subPath: application.properties
-        - name: sr-cert-volume
-          mountPath: /serviceregistry/serviceregistry.p12
-          subPath: serviceregistry.p12
-        - name: truststore-volume
-          mountPath: /serviceregistry/truststore.p12
-          subPath: truststore.p12
       volumes: # Docker Network Volumes
         - name: serviceregistry-volume
           configMap:
@@ -61,15 +55,3 @@ spec: # Deployment scpecifications
             items:
             - key: serviceregistry.properties
               path: application.properties
-        - name: sr-cert-volume
-          configMap:
-            name: certs
-            items:
-            - key: serviceregistry.p12
-              path: serviceregistry.p12
-        - name: truststore-volume
-          configMap:
-            name: certs
-            items:
-            - key: testcloud1.truststore.p12
-              path: truststore.p12

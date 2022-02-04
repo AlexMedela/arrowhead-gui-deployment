@@ -48,12 +48,6 @@ spec: # Deployment scpecifications
         - name: gateway-volume
           mountPath: /gateway/application.properties
           subPath: application.properties
-        - name: gw-cert-volume
-          mountPath: /gateway/gateway.p12
-          subPath: gateway.p12
-        - name: truststore-volume
-          mountPath: /serviceregistry/truststore.p12
-          subPath: truststore.p12
       volumes: # Docker Network Volumes
         - name: gateway-volume
           configMap:
@@ -61,15 +55,3 @@ spec: # Deployment scpecifications
             items:
             - key: gateway.properties
               path: application.properties
-        - name: gw-cert-volume
-          configMap:
-            name: certs
-            items:
-            - key: gateway.p12
-              path: gateway.p12
-        - name: truststore-volume
-          configMap:
-            name: certs
-            items:
-            - key: testcloud1.truststore.p12
-              path: truststore.p12

@@ -70,10 +70,7 @@ class Deployment(tk.Frame):
 
             update_text('Adding configuration files...')
             # Add configuration files
-            if config_json['cluster_db']:
-                os.system(f"sh scripts/k8s_config.sh cluster {kubeconfig_file}")
-            else:
-                os.system(f"sh scripts/k8s_config.sh cluster {kubeconfig_file}")
+            os.system(f"sh scripts/k8s_config.sh {kubeconfig_file}")
             update_text('Configuration files added.')
 
             # Deploy database

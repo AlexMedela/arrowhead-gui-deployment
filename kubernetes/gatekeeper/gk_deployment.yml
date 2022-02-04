@@ -48,12 +48,6 @@ spec: # Deployment scpecifications
         - name: gatekeeper-volume
           mountPath: /gatekeeper/application.properties
           subPath: application.properties
-        - name: gk-cert-volume
-          mountPath: /gatekeeper/gatekeeper.p12
-          subPath: gatekeeper.p12
-        - name: truststore-volume
-          mountPath: /serviceregistry/truststore.p12
-          subPath: truststore.p12
       volumes: # Docker Network Volumes
         - name: gatekeeper-volume
           configMap:
@@ -61,15 +55,3 @@ spec: # Deployment scpecifications
             items:
             - key: gatekeeper.properties
               path: application.properties
-        - name: gk-cert-volume
-          configMap:
-            name: certs
-            items:
-            - key: gatekeeper.p12
-              path: gatekeeper.p12
-        - name: truststore-volume
-          configMap:
-            name: certs
-            items:
-            - key: testcloud1.truststore.p12
-              path: truststore.p12
