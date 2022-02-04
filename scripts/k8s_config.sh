@@ -5,4 +5,4 @@ then
     kubectl config --kubeconfig=$1 use-context $2
 fi
 
-kubectl apply -f "kubernetes/configmaps/db_init.yml" --kubeconfig=$1
+kubectl apply -f "kubernetes/configmaps/" --kubeconfig=$1
