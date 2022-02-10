@@ -39,14 +39,14 @@ This repository contains a docker-compose file with all the containers used for 
 
 You can also find the Dockerfiles used to create the images on the docker folder.
 
-## Running the Kubernetes resources
+## Running the k8s resources
 In case you want to deploy the cluster manually or make any changes you can use the kubernetes resources defined in the _kubernetes/_ folder.
 
 And if you don't know how to use those resources you can also use the scripts found in the _scripts/_ folder. In this folder you will find different scripts to deploy individualy each resource.
 
 On the other hand, the scripts to create the clusters on Azure and GCloud won't work.
  
-## Creating clusters manually
+## Creating cloud k8s clusters manually
 In the case you want to create the cluster you will need to go to the corresponding folder depending if you want to deploy it on Azure (_terraform/azure_terraform_) or Gcloud (_terraform/google_terraform_). Inside this folders you will need to run the following commands:
 
 ``` 
