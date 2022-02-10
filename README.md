@@ -3,6 +3,8 @@
 ![python-version](https://img.shields.io/badge/Python-3.8.8-blue)
 ![kubernetes-version](https://img.shields.io/badge/k8s-1.20.0-blueviolet)
 ![Terraform-version](https://img.shields.io/badge/Terraform-1.1.3-brigthgreen)
+![kubectl-version](https://img.shields.io/badge/kubectl-1.21.2-blueviolet)
+![Terraform-version](https://img.shields.io/badge/Helm-3.7.1-green)
 
 This repository contains a Graphical User Interface that automates the deployment of the Arrowhead Framework. By using this GUI you will be able to easily deploy the Arrowhead Framework on a Kubernetes cluster just following some instructions. 
 
