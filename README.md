@@ -25,14 +25,37 @@ Before trying to use the GUI you will need to fill the next requirements:
 - The kubernetes cluster must be 1.20 or lower
 
 
-## Como desplegarlo y usarlo
+## Running the GUI
+To use the GUI you only need to run the application.py file. You can do so by running the next command on the root directoty of the repository:
 
+``` 
+$ python application.py
+```
 
-## Como probar la docker test network
-## Como utilizar los recursos de Kubernetes (o scripts) para desplegarlo) manualmente
-## Como utilizar la parte de terraform para desplegarlo manualmente
-## Documentacion sobre que es cada carpeta y como funciona el codigo
-Meterlo en un fichero aparte y enlazarlo
+Now that you have the GUI running just follow the instructions.
+
+## Running the docker test network
+This repository contains a docker-compose file with all the containers used for the deployment. So if you want to run the arrowhead framework on docker to test it you can run the docker compose file on _docker/0_docker_compose_test_. If you want to make any changes to the configuration you can alse check the files on the folder _docker/0_docker_compose_test/core_system_config_.
+
+You can also find the Dockerfiles used to create the images on the docker folder.
+
+## Running the Kubernetes resources
+In case you want to deploy the cluster manually or make any changes you can use the kubernetes resources defined in the _kubernetes/_ folder.
+
+And if you don't know how to use those resources you can also use the scripts found in the _scripts/_ folder. In this folder you will find different scripts to deploy individualy each resource.
+
+On the other hand, the scripts to create the clusters on Azure and GCloud won't work.
+ 
+## Creating clusters manually
+In the case you want to create the cluster you will need to go to the corresponding folder depending if you want to deploy it on Azure (_terraform/azure_terraform_) or Gcloud (_terraform/google_terraform_). Inside this folders you will need to run the following commands:
+
+``` 
+$ terraform init
+$ terraform apply -auto-aprove
+```
+
+After the second command you will be asked for the credentials and it will start creating the cluster.
+
 ## Author
 - Alex Medela - [alexm.mede98@gmail.com](mailto:alexm.mede98@gmail.com)
 
