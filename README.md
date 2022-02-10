@@ -29,7 +29,7 @@ Before trying to use the GUI you will need to fill the next requirements:
 To use the GUI you only need to run the application.py file. You can do so by running the next command on the root directoty of the repository:
 
 ``` 
-$ python application.py
+python application.py
 ```
 
 Now that you have the GUI running just follow the instructions.
@@ -50,8 +50,8 @@ On the other hand, the scripts to create the clusters on Azure and GCloud won't 
 In the case you want to create the cluster you will need to go to the corresponding folder depending if you want to deploy it on Azure (_terraform/azure_terraform_) or Gcloud (_terraform/google_terraform_). Inside this folders you will need to run the following commands:
 
 ``` 
-$ terraform init
-$ terraform apply -auto-aprove
+terraform init
+terraform apply -auto-aprove
 ```
 
 After the second command you will be asked for the credentials and it will start creating the cluster.
