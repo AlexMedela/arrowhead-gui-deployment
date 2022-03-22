@@ -54,7 +54,7 @@ services:
 
   gatekeeper:
     container_name: gatekeeper
-    image: alexmedela/gatekeeper:4.4.1
+    image: sventlint/gatekeeper:4.4.1
     depends_on:
       - mysql
     volumes:

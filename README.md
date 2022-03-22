@@ -20,7 +20,7 @@ This few options allows you to modify the deployment architecture so it can fit 
 Before trying to use the GUI you will need to fill the next requirements:
 
 - The operative system must be MacOS or Linux
-- Python 3.8 or higher with pillow package installed (recommended to use a virtual enviroment)
+- Python 3.8 or higher with pillow package installed (recommended to use a virtual environment)
 - Kubectl 1.21 or higher ([Installation link](https://kubernetes.io/docs/tasks/tools/))
 - Terraform 1.1 or higher, only if you need to create a new cluster ([Installation link](https://www.terraform.io/downloads))
 - Helm 3.7 or higher, only if you want to deploy the db cluster ([Installation link](https://helm.sh/docs/intro/install/)) 
