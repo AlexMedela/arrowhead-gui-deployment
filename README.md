@@ -58,8 +58,14 @@ terraform apply -auto-aprove
 
 After the second command you will be asked for the credentials and it will start creating the cluster.
 
+## Additional information
+Additional information can be found in the docs folder.
+
+* [Repostory structure explained](docs/repo_structure.md)
+* [Project development documentation](docs/) (Master Thesis)
+
 ## Author
-- Alex Medela - [alexm.mede98@gmail.com](mailto:alexm.mede98@gmail.com)
+- Alexander Medela - [alexm.mede98@gmail.com](mailto:alexm.mede98@gmail.com)
 
 
 
